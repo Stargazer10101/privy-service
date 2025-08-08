@@ -6,18 +6,12 @@ import { Chacha20Poly1305 } from '@hpke/chacha20poly1305';
 
 
 // Wallet creation
-let totalTime = 0;
-
 async function createPrivyWallet(privy: PrivyClient, ownerPublicKey: string) {
     console.log(`\nAttempting to create a new wallet owned by authorization key...`);
-    const start1 = performance.now();
     const newWallet = await privy.walletApi.createWallet({
         chainType: "solana",
         owner: { publicKey: ownerPublicKey }
     });
-    const end1 = performance.now();
-    totalTime= totalTime + end1 - start1;
-    console.log(`createWallet took ${(end1 - start1).toFixed(2)} ms`);
     console.log('✅ Wallet created successfully!');
     console.log(newWallet);
     return newWallet;
@@ -134,25 +128,29 @@ async function main() {
   const privy = new PrivyClient(privyAppId, privyAppSecret);
   console.log("Privy Client initialized successfully!");
 
-  let number = 20;
-  let createdWallet: any = null;
-  while(number>0){
-    createdWallet = await createPrivyWallet(privy, privyAuthorizationPublicKey);
-    number= number - 1;
-  }
-  const averageTime = totalTime/20;
-  console.log(`\nAverage createWallet time: ${averageTime.toFixed(2)} ms`);
 
-  const start2 = performance.now();
-  const privateKey = await exportWalletPrivateKey(
-    privyAppId,
-    privyAppSecret,
-    createdWallet.id,
-    privyAuthorizationPrivateKey
-  );
-  const end2 = performance.now();
-  console.log(`exportWallet took ${(end2 - start2).toFixed(2)} ms`);
-  console.log(`\n✅Exported Private Key`);
+  const createdWallet = await createPrivyWallet(privy, privyAuthorizationPublicKey);
+
+  let totalExportTime = 0;
+  const iterations = 20;
+
+  for (let i = 0; i < iterations; i++) {
+    console.log(`\nExport attempt #${i + 1}`);
+    const start = performance.now();
+    await exportWalletPrivateKey(
+      privyAppId,
+      privyAppSecret,
+      createdWallet.id,
+      privyAuthorizationPrivateKey
+    );
+    const end = performance.now();
+    const elapsed = end - start;
+    totalExportTime += elapsed;
+    console.log(`exportWalletPrivateKey took ${elapsed.toFixed(2)} ms`);
+  }
+
+  const averageExportTime = totalExportTime / iterations;
+  console.log(`\nAverage exportWalletPrivateKey time: ${averageExportTime.toFixed(2)} ms`);
 }
 
 main().catch((error) => {
