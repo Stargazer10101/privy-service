@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create-wallet": "ts-node --esm create_wallet_and_export_key.ts"
+    "create-wallet": "ts-node --esm create_wallet_and_export_key.ts",
+    "api_credentials": "ts-node --esm generate_api_credentials.ts"
   },
   "keywords": [],
   "author": "",

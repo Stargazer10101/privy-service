@@ -17,7 +17,6 @@ async function createPrivyWallet(privy: PrivyClient, ownerPublicKey: string) {
     return newWallet;
 }
 
-
 // Decryption function
 async function decryptHPKEMessage(
   privateKeyBase64: string,
@@ -45,7 +44,6 @@ async function decryptHPKEMessage(
   const hexString = Buffer.from(decryptedBuffer).toString('hex');
   return `0x${hexString}`;
 }
-
 
 //Securely export and decrypt a wallet's private key.
 async function exportWalletPrivateKey(
