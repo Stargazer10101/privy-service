@@ -143,7 +143,7 @@ async function main() {
   console.log("\nAdd these to your .env file:");
   console.log(`WALLET_ID=${createdWallet.id}`);
   console.log(`MAKER_ADDRESS=${createdWallet.address}`);
-  console.log(`PRIVATE_KEY=${privateKey}`);
+  //console.log(`PRIVATE_KEY=${privateKey}`);
 }
 
 main().catch((error) => {

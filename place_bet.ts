@@ -104,11 +104,11 @@ async function placeBetWithClobClient() {
     console.log("Placing order with CLOB client...");
     const orderResult = await clobClient.createAndPostOrder(orderParams);
 
-    console.log("\n✅ Order placed successfully!");
+    console.log("\nOrder placed successfully!");
     console.log("Order Result:", JSON.stringify(orderResult, null, 2));
 
   } catch (error) {
-    console.error("❌ Error placing order:", error);
+    console.error("Error placing order:", error);
     if (error instanceof Error) {
       console.error("Error message:", error.message);
       console.error("Error stack:", error.stack);
