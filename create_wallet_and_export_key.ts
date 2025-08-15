@@ -137,7 +137,15 @@ async function main() {
     privyAuthorizationPrivateKey
   );
 
-  console.log(`\nExported Private Key`);
+  console.log(`\nExported Private Key: ${privateKey}`);
+  console.log(`\nWallet Address: ${createdWallet.address}`);
+  console.log(`\nWallet ID: ${createdWallet.id}`);
+  
+  // Save to .env format
+  console.log("\nAdd these to your .env file:");
+  console.log(`WALLET_ID=${createdWallet.id}`);
+  console.log(`MAKER_ADDRESS=${createdWallet.address}`);
+  console.log(`PRIVATE_KEY=${privateKey}`);
 }
 
 main().catch((error) => {

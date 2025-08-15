@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node --esm index.ts"
+    "create-wallet": "ts-node --esm create_wallet_and_export_key.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@polymarket/clob-client": "^4.20.0",
     "@privy-io/server-auth": "^1.30.0",
     "dotenv": "^17.2.1",
     "ethers": "^6.15.0"
